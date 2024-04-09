@@ -92,18 +92,6 @@
           "properties" : {
             "tags" : [ "expected-extracted-files", "telemetry" ]
           }
-        }, {
-          "id" : "cli/database/analyze",
-          "name" : "cli/database/analyze",
-          "shortDescription" : {
-            "text" : "CodeQL CLI: database analyze"
-          },
-          "fullDescription" : {
-            "text" : "CodeQL CLI: database analyze"
-          },
-          "defaultConfiguration" : {
-            "enabled" : true
-          }
         } ],
         "rules" : [ {
           "id" : "java/stack-trace-exposure",
@@ -6712,9 +6700,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/model/TopicTag.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/controller/api/UserApiController.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 103
+              "index" : 78
             }
           }
         } ],
@@ -6735,9 +6723,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/controller/api/UserApiController.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/model/TopicTag.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 78
+              "index" : 103
             }
           }
         } ],
@@ -6804,9 +6792,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/directive/SearchDirective.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/plugin/ElasticSearchPlugin.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 49
+              "index" : 64
             }
           }
         } ],
@@ -6827,9 +6815,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/plugin/ElasticSearchPlugin.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/directive/SearchDirective.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 64
+              "index" : 49
             }
           }
         } ],
@@ -6873,9 +6861,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/controller/api/NotificationApiController.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/controller/api/SettingsApiController.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 67
+              "index" : 164
             }
           }
         } ],
@@ -6896,9 +6884,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/controller/api/SettingsApiController.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/controller/api/NotificationApiController.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 164
+              "index" : 67
             }
           }
         } ],
@@ -7678,9 +7666,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/controller/front/BaseController.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/plugin/SocialPlugin.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 145
+              "index" : 85
             }
           }
         } ],
@@ -7701,9 +7689,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/plugin/SocialPlugin.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/controller/front/BaseController.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 85
+              "index" : 145
             }
           }
         } ],
@@ -8207,9 +8195,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/MessageEncoder.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/model/Role.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 23
+              "index" : 161
             }
           }
         } ],
@@ -8253,9 +8241,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/model/Role.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/MessageEncoder.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 161
+              "index" : 23
             }
           }
         } ],
@@ -8575,29 +8563,6 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/service/IOAuthUserService.java",
-              "uriBaseId" : "%SRCROOT%",
-              "index" : 114
-            }
-          }
-        } ],
-        "message" : {
-          "text" : ""
-        },
-        "level" : "none",
-        "descriptor" : {
-          "id" : "java/baseline/expected-extracted-files",
-          "index" : 3
-        },
-        "properties" : {
-          "formattedMessage" : {
-            "text" : ""
-          }
-        }
-      }, {
-        "locations" : [ {
-          "physicalLocation" : {
-            "artifactLocation" : {
               "uri" : "src/main/java/co/yiiu/pybbs/config/FreemarkerConfig.java",
               "uriBaseId" : "%SRCROOT%",
               "index" : 61
@@ -8621,9 +8586,32 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/WebSocketConfig.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/service/IOAuthUserService.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 86
+              "index" : 114
+            }
+          }
+        } ],
+        "message" : {
+          "text" : ""
+        },
+        "level" : "none",
+        "descriptor" : {
+          "id" : "java/baseline/expected-extracted-files",
+          "index" : 3
+        },
+        "properties" : {
+          "formattedMessage" : {
+            "text" : ""
+          }
+        }
+      }, {
+        "locations" : [ {
+          "physicalLocation" : {
+            "artifactLocation" : {
+              "uri" : "src/main/java/co/yiiu/pybbs/directive/UserCommentsDirective.java",
+              "uriBaseId" : "%SRCROOT%",
+              "index" : 52
             }
           }
         } ],
@@ -8667,9 +8655,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/directive/UserCommentsDirective.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/WebSocketConfig.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 52
+              "index" : 86
             }
           }
         } ],
@@ -8874,29 +8862,6 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/MessageDecoder.java",
-              "uriBaseId" : "%SRCROOT%",
-              "index" : 129
-            }
-          }
-        } ],
-        "message" : {
-          "text" : ""
-        },
-        "level" : "none",
-        "descriptor" : {
-          "id" : "java/baseline/expected-extracted-files",
-          "index" : 3
-        },
-        "properties" : {
-          "formattedMessage" : {
-            "text" : ""
-          }
-        }
-      }, {
-        "locations" : [ {
-          "physicalLocation" : {
-            "artifactLocation" : {
               "uri" : "src/main/java/co/yiiu/pybbs/service/impl/CollectService.java",
               "uriBaseId" : "%SRCROOT%",
               "index" : 101
@@ -8920,9 +8885,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/util/JsonUtil.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/MessageDecoder.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 123
+              "index" : 129
             }
           }
         } ],
@@ -8966,9 +8931,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/service/ICodeService.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/util/JsonUtil.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 110
+              "index" : 123
             }
           }
         } ],
@@ -8992,6 +8957,29 @@
               "uri" : "src/main/java/co/yiiu/pybbs/config/DataSourceConfig.java",
               "uriBaseId" : "%SRCROOT%",
               "index" : 136
+            }
+          }
+        } ],
+        "message" : {
+          "text" : ""
+        },
+        "level" : "none",
+        "descriptor" : {
+          "id" : "java/baseline/expected-extracted-files",
+          "index" : 3
+        },
+        "properties" : {
+          "formattedMessage" : {
+            "text" : ""
+          }
+        }
+      }, {
+        "locations" : [ {
+          "physicalLocation" : {
+            "artifactLocation" : {
+              "uri" : "src/main/java/co/yiiu/pybbs/service/ICodeService.java",
+              "uriBaseId" : "%SRCROOT%",
+              "index" : 110
             }
           }
         } ],
@@ -9748,9 +9736,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/mapper/SensitiveWordMapper.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/MyWebSocket.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 37
+              "index" : 74
             }
           }
         } ],
@@ -9771,9 +9759,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/config/websocket/MyWebSocket.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/mapper/SensitiveWordMapper.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 74
+              "index" : 37
             }
           }
         } ],
@@ -10346,9 +10334,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/config/service/SensitiveWordFilterService.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/controller/admin/IndexAdminController.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 125
+              "index" : 81
             }
           }
         } ],
@@ -10369,9 +10357,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/controller/admin/IndexAdminController.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/config/service/SensitiveWordFilterService.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 81
+              "index" : 125
             }
           }
         } ],
@@ -10438,9 +10426,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/util/identicon/generator/IBaseGenerator.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/util/captcha/Encoder.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 29
+              "index" : 171
             }
           }
         } ],
@@ -10461,9 +10449,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/util/captcha/Encoder.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/util/identicon/generator/IBaseGenerator.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 171
+              "index" : 29
             }
           }
         } ],
@@ -10530,9 +10518,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/config/service/TelegramBotService.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/service/impl/SystemConfigService.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 105
+              "index" : 151
             }
           }
         } ],
@@ -10553,9 +10541,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/service/impl/SystemConfigService.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/config/service/TelegramBotService.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 151
+              "index" : 105
             }
           }
         } ],
@@ -10622,9 +10610,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/service/ITopicService.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/util/captcha/Quant.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 57
+              "index" : 65
             }
           }
         } ],
@@ -10645,9 +10633,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "src/main/java/co/yiiu/pybbs/util/captcha/Quant.java",
+              "uri" : "src/main/java/co/yiiu/pybbs/service/ITopicService.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 65
+              "index" : 57
             }
           }
         } ],
@@ -10961,24 +10949,6 @@
         "properties" : {
           "formattedMessage" : {
             "text" : ""
-          }
-        }
-      }, {
-        "message" : {
-          "text" : "A fatal error occurred: Could not write SARIF file\n(eventual cause: NoSuchFileException \"/home/kdas006/dataset/pybbs/~/codeql-home/res/pybbs.sarif\")"
-        },
-        "level" : "error",
-        "timeUtc" : "2023-11-09T03:08:24.564+00:00",
-        "descriptor" : {
-          "id" : "cli/database/analyze",
-          "index" : 5
-        },
-        "properties" : {
-          "attributes" : {
-            "exitCode" : 2
-          },
-          "visibility" : {
-            "telemetry" : false
           }
         }
       } ],
