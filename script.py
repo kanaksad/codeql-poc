@@ -49,6 +49,6 @@ timings_file = '/home/kdas006/codeql-home/playing-around/codeql-poc-repo/timings
 create_db = "codeql database create --language=java {db_dir}/{dir_name}"
 store_res = "codeql database analyze {db_dir}/{dir_name} /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output={res_dir}/{dir_name}.sarif"
 
-run_command_in_subdirs(dataset_directory, create_db, db_dir, res_dir, timings_file)
-#run_command_in_subdirs(dataset_directory, store_res, db_dir, res_dir, timings_file)
+#run_command_in_subdirs(dataset_directory, create_db, db_dir, res_dir, timings_file)
+run_command_in_subdirs(dataset_directory, store_res, db_dir, res_dir, timings_file)
 
