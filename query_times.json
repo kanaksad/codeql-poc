@@ -1,0 +1,37 @@
+[
+    {
+        "directory": "esapi-java-legacy",
+        "command": "codeql database analyze /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/esapi-java-legacy /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output=/home/kdas006/codeql-home/playing-around/codeql-poc-repo/results/esapi-java-legacy.sarif",
+        "elapsed_time": 70.57741951942444
+    },
+    {
+        "directory": "alfresco-community-repo",
+        "command": "codeql database analyze /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/alfresco-community-repo /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output=/home/kdas006/codeql-home/playing-around/codeql-poc-repo/results/alfresco-community-repo.sarif",
+        "elapsed_time": 447.2646133899689
+    },
+    {
+        "directory": "pybbs",
+        "command": "codeql database analyze /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/pybbs /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output=/home/kdas006/codeql-home/playing-around/codeql-poc-repo/results/pybbs.sarif",
+        "elapsed_time": 60.542564868927
+    },
+    {
+        "directory": "struts",
+        "command": "codeql database analyze /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/struts /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output=/home/kdas006/codeql-home/playing-around/codeql-poc-repo/results/struts.sarif",
+        "elapsed_time": 200.61720848083496
+    },
+    {
+        "directory": "cxf",
+        "command": "codeql database analyze /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/cxf /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output=/home/kdas006/codeql-home/playing-around/codeql-poc-repo/results/cxf.sarif",
+        "elapsed_time": 377.6285398006439
+    },
+    {
+        "directory": "commons-configuration",
+        "command": "codeql database analyze /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/commons-configuration /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output=/home/kdas006/codeql-home/playing-around/codeql-poc-repo/results/commons-configuration.sarif",
+        "elapsed_time": 81.36727404594421
+    },
+    {
+        "directory": "micronaut-core",
+        "command": "codeql database analyze /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/micronaut-core /home/kdas006/codeql-home/codeql-repo/java/ql/src/codeql-suites/java-security-extended.qls --format=sarifv2.1.0 --sarif-add-file-contents --output=/home/kdas006/codeql-home/playing-around/codeql-poc-repo/results/micronaut-core.sarif",
+        "elapsed_time": 147.49604678153992
+    }
+]
