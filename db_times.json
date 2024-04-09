@@ -1,0 +1,37 @@
+[
+    {
+        "directory": "esapi-java-legacy",
+        "command": "codeql database create --language=java /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/esapi-java-legacy",
+        "elapsed_time": 24.414395570755005
+    },
+    {
+        "directory": "alfresco-community-repo",
+        "command": "codeql database create --language=java /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/alfresco-community-repo",
+        "elapsed_time": 250.3229215145111
+    },
+    {
+        "directory": "pybbs",
+        "command": "codeql database create --language=java /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/pybbs",
+        "elapsed_time": 22.471994876861572
+    },
+    {
+        "directory": "struts",
+        "command": "codeql database create --language=java /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/struts",
+        "elapsed_time": 224.46127557754517
+    },
+    {
+        "directory": "cxf",
+        "command": "codeql database create --language=java /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/cxf",
+        "elapsed_time": 699.076676607132
+    },
+    {
+        "directory": "commons-configuration",
+        "command": "codeql database create --language=java /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/commons-configuration",
+        "elapsed_time": 32.74979829788208
+    },
+    {
+        "directory": "micronaut-core",
+        "command": "codeql database create --language=java /home/kdas006/codeql-home/playing-around/codeql-poc-repo/db/micronaut-core",
+        "elapsed_time": 245.8276493549347
+    }
+]
