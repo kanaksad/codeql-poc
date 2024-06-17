@@ -2936,6 +2936,29 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
+              "uri" : "annotated/src/main/java/demo/taint/ExecParameterTokenizer.java",
+              "uriBaseId" : "%SRCROOT%",
+              "index" : 9
+            }
+          }
+        } ],
+        "message" : {
+          "text" : ""
+        },
+        "level" : "none",
+        "descriptor" : {
+          "id" : "java/baseline/expected-extracted-files",
+          "index" : 3
+        },
+        "properties" : {
+          "formattedMessage" : {
+            "text" : ""
+          }
+        }
+      }, {
+        "locations" : [ {
+          "physicalLocation" : {
+            "artifactLocation" : {
               "uri" : "annotated/src/main/java/demo/nullaway/Main.java",
               "uriBaseId" : "%SRCROOT%",
               "index" : 7
@@ -2959,9 +2982,9 @@
         "locations" : [ {
           "physicalLocation" : {
             "artifactLocation" : {
-              "uri" : "annotated/src/main/java/demo/taint/ExecParameterTokenizer.java",
+              "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
               "uriBaseId" : "%SRCROOT%",
-              "index" : 9
+              "index" : 0
             }
           }
         } ],
@@ -3008,29 +3031,6 @@
               "uri" : "unannotated/src/main/java/demo/taint/Pair.java",
               "uriBaseId" : "%SRCROOT%",
               "index" : 4
-            }
-          }
-        } ],
-        "message" : {
-          "text" : ""
-        },
-        "level" : "none",
-        "descriptor" : {
-          "id" : "java/baseline/expected-extracted-files",
-          "index" : 3
-        },
-        "properties" : {
-          "formattedMessage" : {
-            "text" : ""
-          }
-        }
-      }, {
-        "locations" : [ {
-          "physicalLocation" : {
-            "artifactLocation" : {
-              "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
-              "uriBaseId" : "%SRCROOT%",
-              "index" : 0
             }
           }
         } ],
@@ -3172,7 +3172,7 @@
         "index" : 0
       },
       "contents" : {
-        "text" : "package edu.ucr.cs.riple.annotator;\n\nimport java.io.IOException;\nimport java.util.ArrayList;\nimport java.util.List;\nimport javax.servlet.http.HttpServletRequest;\n\npublic class Foo {\n\n  List<String> list = new ArrayList<>();\n\n  void bar(HttpServletRequest request) {\n    String param = request.getParameter(\"param\");\n    list.add(param);\n  }\n\n  void exec() {\n    sink(list.iterator().next());\n  }\n\n  void sink(String param) {\n    ProcessBuilder processBuilder = new ProcessBuilder(param);\n    try {\n      processBuilder.start();\n    } catch (IOException e) {\n      throw new RuntimeException(e);\n    }\n  }\n}\n"
+        "text" : "package edu.ucr.cs.riple.annotator;\n\nimport java.io.IOException;\nimport java.util.ArrayList;\nimport java.util.List;\nimport javax.servlet.http.HttpServletRequest;\n\npublic class Foo {\n\n  List<String> list = new ArrayList<>();\n\n  void bar(HttpServletRequest request) {\n    String param = request.getParameter(\"param\");\n    list.add(param);\n  }\n\n  void exec() {\n    sink(list.iterator().next());\n  }\n\n  void sink(String param) {\n    ProcessBuilder processBuilder = new ProcessBuilder(param);\n    try {\n      processBuilder.start();\n    } catch (IOException e) {\n      throw new RuntimeException(e);\n    }\n  }\n\n  public void test(HttpServletRequest request) {\n    Foo foo = new Foo();\n    foo.bar(request);\n    foo.exec();\n  }\n}\n"
       }
     }, {
       "location" : {
@@ -3283,7 +3283,328 @@
         "text" : "package demo.taint;\n\nimport java.io.File;\nimport java.io.IOException;\nimport java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\npublic class RuntimeExec {\n\n  private static final String VAR_OPEN = \"${\";\n  private static final String VAR_CLOSE = \"}\";\n  private static final String DIRECTIVE_SPLIT = \"SPLIT:\";\n  private static final Map<String, String> defaultProperties = new HashMap<>();\n\n  private String[] processProperties;\n  private File processDirectory;\n  private String[] command;\n\n  public void setCommand(String[] command) {\n    this.command = command;\n  }\n\n  public void setProcessDirectory(File processDirectory) {\n    this.processDirectory = processDirectory;\n  }\n\n  public void setProcessProperties(String[] processProperties) {\n    this.processProperties = processProperties;\n  }\n\n  public String[] getCommand(Map<String, String> properties) {\n    Map<String, String> execProperties = null;\n    if (properties == defaultProperties) {\n      // we are just using the default properties\n      execProperties = defaultProperties;\n    } else {\n      execProperties = new HashMap<String, String>(defaultProperties);\n      // overlay the supplied properties\n      execProperties.putAll(properties);\n    }\n    // Perform the substitution for each element of the command\n    ArrayList<String> adjustedCommandElements = new ArrayList<String>(20);\n    for (int i = 0; i < command.length; i++) {\n      StringBuilder sb = new StringBuilder(command[i]);\n      for (Map.Entry<String, String> entry : execProperties.entrySet()) {\n        String key = entry.getKey();\n        String value = entry.getValue();\n        // ignore null\n        if (value == null) {\n          value = \"\";\n        }\n        // progressively replace the property in the command\n        key = (VAR_OPEN + key + VAR_CLOSE);\n        int index = sb.indexOf(key);\n        while (index > -1) {\n          // replace\n          sb.replace(index, index + key.length(), value);\n          // get the next one\n          index = sb.indexOf(key, index + 1);\n        }\n      }\n      String adjustedValue = sb.toString();\n      // Now SPLIT: it\n      if (adjustedValue.startsWith(DIRECTIVE_SPLIT)) {\n        String unsplitAdjustedValue = sb.substring(DIRECTIVE_SPLIT.length());\n\n        // There may be quoted arguments here (see ALF-7482)\n        ExecParameterTokenizer quoteAwareTokenizer =\n            new ExecParameterTokenizer(unsplitAdjustedValue);\n        List<String> tokens = quoteAwareTokenizer.getAllTokens();\n        adjustedCommandElements.addAll(tokens);\n      } else {\n        adjustedCommandElements.add(adjustedValue);\n      }\n    }\n    // done\n    return adjustedCommandElements.toArray(new String[adjustedCommandElements.size()]);\n  }\n\n  public ExecutionResult execute(Map<String, String> properties) {\n    // check that the command has been set\n    if (command == null) {\n      throw new IllegalStateException(\"Command has not been set\");\n    }\n    // create the properties\n    Runtime runtime = Runtime.getRuntime();\n    String[] commandToExecute;\n    try {\n      // execute the command with full property replacement\n      commandToExecute = getCommand(properties);\n      runtime.exec(commandToExecute, processProperties, processDirectory);\n    } catch (IOException e) {\n      // The process could not be executed here\n      return ExecutionResult.FAILURE;\n    }\n    return ExecutionResult.SUCCESS;\n  }\n}\n"
       }
     } ],
-    "results" : [ ],
+    "results" : [ {
+      "ruleId" : "java/command-line-injection",
+      "ruleIndex" : 58,
+      "rule" : {
+        "id" : "java/command-line-injection",
+        "index" : 58
+      },
+      "message" : {
+        "text" : "This command line depends on a [user-provided value](1)."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 22,
+            "startColumn" : 56,
+            "endColumn" : 61
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "41ad4d84e5b303a6:1",
+        "primaryLocationStartColumnFingerprint" : "51"
+      },
+      "codeFlows" : [ {
+        "threadFlows" : [ {
+          "locations" : [ {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 13,
+                  "startColumn" : 20,
+                  "endColumn" : 49
+                }
+              },
+              "message" : {
+                "text" : "getParameter(...) : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 14,
+                  "startColumn" : 14,
+                  "endColumn" : 19
+                }
+              },
+              "message" : {
+                "text" : "param : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 14,
+                  "startColumn" : 5,
+                  "endColumn" : 9
+                }
+              },
+              "message" : {
+                "text" : "list [post update] : ArrayList [<element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 14,
+                  "startColumn" : 5,
+                  "endColumn" : 9
+                }
+              },
+              "message" : {
+                "text" : "this <.field> [post update] : Foo [list, <element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 32,
+                  "startColumn" : 5,
+                  "endColumn" : 8
+                }
+              },
+              "message" : {
+                "text" : "foo [post update] : Foo [list, <element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 33,
+                  "startColumn" : 5,
+                  "endColumn" : 8
+                }
+              },
+              "message" : {
+                "text" : "foo : Foo [list, <element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 17,
+                  "startColumn" : 8,
+                  "endColumn" : 12
+                }
+              },
+              "message" : {
+                "text" : "parameter this : Foo [list, <element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 18,
+                  "startColumn" : 10,
+                  "endColumn" : 14
+                }
+              },
+              "message" : {
+                "text" : "this <.field> : Foo [list, <element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 18,
+                  "startColumn" : 10,
+                  "endColumn" : 14
+                }
+              },
+              "message" : {
+                "text" : "list : ArrayList [<element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 18,
+                  "startColumn" : 10,
+                  "endColumn" : 25
+                }
+              },
+              "message" : {
+                "text" : "iterator(...) : Iterator [<element>] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 18,
+                  "startColumn" : 10,
+                  "endColumn" : 32
+                }
+              },
+              "message" : {
+                "text" : "next(...) : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 21,
+                  "startColumn" : 13,
+                  "endColumn" : 25
+                }
+              },
+              "message" : {
+                "text" : "param : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 22,
+                  "startColumn" : 56,
+                  "endColumn" : 61
+                }
+              },
+              "message" : {
+                "text" : "param : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 22,
+                  "startColumn" : 37,
+                  "endColumn" : 62
+                }
+              },
+              "message" : {
+                "text" : "new ..[] { .. } : String[] [[]] : String"
+              }
+            }
+          }, {
+            "location" : {
+              "physicalLocation" : {
+                "artifactLocation" : {
+                  "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+                  "uriBaseId" : "%SRCROOT%",
+                  "index" : 0
+                },
+                "region" : {
+                  "startLine" : 22,
+                  "startColumn" : 37,
+                  "endColumn" : 62
+                }
+              },
+              "message" : {
+                "text" : "new ..[] { .. }"
+              }
+            }
+          } ]
+        } ]
+      } ],
+      "relatedLocations" : [ {
+        "id" : 1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "example/src/main/java/edu/ucr/cs/riple/annotator/Foo.java",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 13,
+            "startColumn" : 20,
+            "endColumn" : 49
+          }
+        },
+        "message" : {
+          "text" : "user-provided value"
+        }
+      } ]
+    } ],
     "columnKind" : "utf16CodeUnits",
     "properties" : {
       "metricResults" : [ {
@@ -3301,8 +3622,8 @@
         },
         "ruleId" : "java/summary/lines-of-code",
         "ruleIndex" : 100,
-        "value" : 366,
-        "baseline" : 394
+        "value" : 371,
+        "baseline" : 399
       }, {
         "rule" : {
           "id" : "java/summary/lines-of-code-java",
@@ -3310,7 +3631,7 @@
         },
         "ruleId" : "java/summary/lines-of-code-java",
         "ruleIndex" : 101,
-        "value" : 366
+        "value" : 371
       }, {
         "rule" : {
           "id" : "java/telemetry/external-libs",
@@ -3780,7 +4101,7 @@
         },
         "ruleId" : "java/telemetry/extraction-information",
         "ruleIndex" : 104,
-        "value" : 366,
+        "value" : 371,
         "message" : {
           "text" : "Number of lines of code with extension java"
         }
@@ -3802,7 +4123,7 @@
         },
         "ruleId" : "java/telemetry/extraction-information",
         "ruleIndex" : 104,
-        "value" : 522,
+        "value" : 528,
         "message" : {
           "text" : "Total number of lines with extension java"
         }
@@ -3835,7 +4156,7 @@
         },
         "ruleId" : "java/telemetry/extraction-information",
         "ruleIndex" : 104,
-        "value" : 770,
+        "value" : 776,
         "message" : {
           "text" : "Total number of lines"
         }
@@ -3846,7 +4167,7 @@
         },
         "ruleId" : "java/telemetry/extraction-information",
         "ruleIndex" : 104,
-        "value" : 614,
+        "value" : 619,
         "message" : {
           "text" : "Number of lines of code"
         }
